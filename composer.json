@@ -1,0 +1,20 @@
+{
+  "name": "nezhura/inputmask-multi",
+  "description": "Yii2 wrapper for Inputmask Multi",
+  "version": "0.0.1",
+  "type": "yii2-extension",
+  "keywords": [
+    "inputmask",
+    "phone",
+    "phonenumber",
+    "multi",
+    "several",
+    "mask",
+    "jquery-plugin"
+  ],
+  "homepage": "https://github.com/andr-04/inputmask-multi",
+  "license": "MIT",
+  "authors": [
+    { "name": "Ivan Nezhura", "homepage": "https://github.com/ivan-nezhura" }
+  ]
+}
