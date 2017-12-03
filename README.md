@@ -3,7 +3,7 @@ For JS plugin details refer to [official page](http://andr-04.github.io/inputmas
 
 ### Usage
 ```
-use \inputmaskMulti\MaskedPhoneInput;
+use inputmaskMulti\MaskedPhoneInput;
 use yii\web\JsExpression;
 
 $inputmaskOptions = [
