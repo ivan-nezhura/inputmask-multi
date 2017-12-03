@@ -16,25 +16,16 @@ class MaskedPhoneInput extends \yii\widgets\InputWidget
     const PLUGIN_NAME = 'inputmasks';
 
     /**
-     * @var array
-     * To provide options for core plugin - supply them to key 'inputmask'
+     * @var array options for inputmask multi core plugin
+     * @see https://github.com/andr-04/inputmask-multi
+     */
+    public $clientOptions = [];
+
+    /**
+     * @var array options for inputmask core plugin
      * @see https://github.com/RobinHerbots/Inputmask
      */
-    public $clientOptions = [
-        'inputmask' => [
-            'definitions' => [
-                '#' => [
-                    'validator' => '[0-9]',
-                    'cardinality' => 1,
-                ]
-            ],
-            'showMaskOnHover' => true,
-            'autoUnmask' => true
-        ],
-        'match' => '/[0-9]/',
-        'replace' => '#',
-        'listKey' => 'mask',
-    ];
+    public $inputmaskClientOptions = [];
 
     /**
      * @var array the HTML attributes for the input tag.
@@ -82,23 +73,36 @@ class MaskedPhoneInput extends \yii\widgets\InputWidget
      */
     protected function _initClientOptions()
     {
-        $options = [
+        $inputMaskDefaultOptions = [
+            'definitions' => [
+                '#' => [
+                    'validator' => '[0-9]',
+                    'cardinality' => 1,
+                ]
+            ],
+            'showMaskOnHover' => true,
+        ];
+
+        $defaultOptions = [
+
+            'match' => new JsExpression('/[0-9]/'),
+            'replace' => '#',
+            'listKey' => 'mask',
             'list' => new JsExpression(
                 '$.masksSort($.masksLoad("' . $this->_getCodeBaseWebPath() . '"), ["#"], /[0-9]|#/, "mask")'),
         ];
 
         $this->clientOptions = ArrayHelper::merge(
-            $options,
-            $this->clientOptions
-        );
+            $defaultOptions,
+            $this->clientOptions,
+            [
+                'inputmask' => ArrayHelper::merge(
+                    $inputMaskDefaultOptions,
+                    $this->inputmaskClientOptions
 
-        if (
-            isset($this->clientOptions['match'])
-            && !($this->clientOptions['match'] instanceof JsExpression)
-        ) {
-            $this->clientOptions['match'] =
-                new JsExpression($this->clientOptions['match']);
-        }
+                )
+            ]
+        );
     }
 
     /**
